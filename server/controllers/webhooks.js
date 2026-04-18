@@ -56,7 +56,7 @@ export const clerkWebhooks=async(req,res)=>{
 const stripeInstance=new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export const stripeWebhooks=async(req,res)=>{
-    const sig=request.headers['stripe-signature'];
+    const sig=req.headers['stripe-signature'];
     let event;
     try{
         event=Stripe.webhooks.constructEvent(req.body,sig,process.env.STRIPE_WEBHOOK_SECRET);
@@ -79,10 +79,10 @@ export const stripeWebhooks=async(req,res)=>{
         const userData=await User.findById(purchaseData.userId)
         const courseData=await Course.findById(purchaseData.courseId.toString())
 
-        courseData.enrolledStudents.push(userData)
+        courseData.enrolledStudents.push(userData._id)
         await courseData.save()
         
-        userData.enrolledStudents.push(courseData._id)
+        userData.enrolledCourses.push(courseData._id)
         await userData.save()
 
         purchaseData.status='completed'
@@ -109,5 +109,5 @@ export const stripeWebhooks=async(req,res)=>{
         console.log(`Unhandled event type ${event.type}`);
     }
     //return response to stripe
-    response.json({received:true});
+    res.json({received:true});
 }
