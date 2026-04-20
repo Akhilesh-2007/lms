@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 const MyEnrollments = () => {
 
-  const {enrolledCourses,calculateCourseDuration,navigate,userData,fetchUserEnrolledCourses,backenUrl,getToken,calculateNoOfLectures}=useContext(AppContext)
+  const {enrolledCourses,calculateCourseDuration,navigate,userData,fetchUserEnrolledCourses,backednUrl:backendUrl,getToken,calculateNoOfLecture}=useContext(AppContext)
 
   const getCourseProgress=async()=>{
     try {
@@ -19,7 +19,7 @@ const MyEnrollments = () => {
             ,{headers:{
               Authorization:`Bearer ${token}`
             }})
-            let totalLectures=calculateNoOfLectures(course);
+            let totalLectures=calculateNoOfLecture(course);
             const lectureCompleted=data.progressData?data.progressData.lectureCompleted.length:0;
             return {lectureCompleted,totalLectures}
         })

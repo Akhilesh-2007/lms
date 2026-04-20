@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const MyCourses = () => {
 
-  const {currency,backendUrl,isEducator,getToken}=useContext(AppContext)
+  const {currency,backednUrl:backendUrl,isEducator,getToken}=useContext(AppContext)
   const [courses,setCourses]=useState(null)
   const fetchEducatorCourses=async()=>{
     try {

@@ -132,7 +132,7 @@ const AddCourse = () => {
       courseDescription,
       coursePrice: String(coursePrice),
       discount: Number(discount),
-      isPublished: false,
+      isPublished: true,
       courseContent: normalizedChapters,
     }
 
@@ -236,9 +236,9 @@ const AddCourse = () => {
                   <img onClick={()=>handleChapter('toggle',chapter.chapterId)} src={assets.dropdown_icon} width={14} alt="" className={`
                     mr-2 cursor-pointer transition-all ${chapter.collapsed && 
                       "-rotate-90"}`}/>
-                  <span className='font-semibold'>{chapterIndex+1}{chapter.chapterTitle}</span>
+                  <span className='font-semibold'>{chapterIndex+1}. {chapter.chapterTitle}</span>
                 </div>
-                <span className='text-gray-500'>{chapter.chapterContent.length}Lectures</span>
+                <span className='text-gray-500'>{chapter.chapterContent.length} Lectures</span>
                 <img onClick={()=>handleChapter('remove',chapter.chapterId)} src={assets.cross_icon} alt="" className='cursor-pointer'/>
               </div>
               {!chapter.collapsed && (

@@ -5,7 +5,7 @@ const CallToAction = () => {
     <div className='text-center flex flex-col items-center gap-4 pt-10 pb-24 px-8 md:px-0'>
         <h1 className='text-xl md:text-4xl text-gray-800 font-medium'>Learn 
           anything,anytime,anywhere</h1>
-        <p className='text=gray-500 sm:text-sm'>Incidiunt sint fugiat pariatur cupidatat consectetur sitcillum anim
+        <p className='text-gray-500 sm:text-sm'>Incidiunt sint fugiat pariatur cupidatat consectetur sitcillum anim
           id venaim aliqua prodent excepteur commodo do
           ea.</p>
         <div className='flex items-center font-medium gap-6 mt-4'>

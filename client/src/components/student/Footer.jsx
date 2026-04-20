@@ -22,7 +22,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className='hidden md:flex flex-col items-start w-full'>
-          <h2 className='font-semibold text-white mb-5'>Subscibe to our newsletter</h2>
+          <h2 className='font-semibold text-white mb-5'>Subscribe to our newsletter</h2>
           <p className='text-white/80 text-sm'>The latest news,articles, and resources,
           sent to your inbox weekly</p>
           <div className='flex items-center gap-2 pt-4'>

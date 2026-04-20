@@ -137,7 +137,7 @@ const Player = () => {
     const handleRate=async(rating)=>{
       try {
         const token=await getToken();
-        const {data}=await axios.post(`${backednUrl}/api/course/add-rating`,{
+        const {data}=await axios.post(`${backednUrl}/api/user/add-rating`,{
           courseId,
           rating
         },{

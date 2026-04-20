@@ -16,7 +16,7 @@ const app=express()
 await connectDB()
 await connectCloudinary()
 
-//Midllewares
+//Middlewares
 app.use(cors())
 app.use(clerkMiddleware())
 

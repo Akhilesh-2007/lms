@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { dummyStudentEnrolled } from '../../assets/assets'
-import { useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { AppContext } from '../../context/AppContext'
 import Loading from '../../components/student/Loading'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const StudentsEnrolled = () => {
 
-  const {backendUrl,isEducator,getToken}=useContext(AppContext)
+  const {backednUrl:backendUrl,isEducator,getToken}=useContext(AppContext)
   const [enrolledStudents,setEnrolledStudents]=useState(null)
   const fetchEnrolledStudents=async()=>{
     try {
@@ -42,7 +42,7 @@ const StudentsEnrolled = () => {
               <th className="px-4 py-3 font-semibold text-center hidden sm:table-cell">#</th>
               <th className="px-4 py-3 font-semibold">Student Name</th>
               <th className="px-4 py-3 font-semibold">Course Title</th>
-              <th className="px-4 py-3 font-semibold hidden sm:table-cell">Data</th>
+              <th className="px-4 py-3 font-semibold hidden sm:table-cell">Date</th>
             </tr>
           </thead>
           <tbody>

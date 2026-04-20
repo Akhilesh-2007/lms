@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Loading = () => {
 
-  const {path}=useParams
+  const {path}=useParams()
   const navigate=useNavigate();
+
   useEffect(()=>{
+    // Only redirect when used as a route component with a path param.
+    // When used as a plain loading spinner (no path), just show the animation.
     if(path){
       const timer=setTimeout(()=>{
         navigate(`/${path}`)
       },5000)
       return ()=>clearTimeout(timer)
-    }else{
-      navigate('/courses')
     }
   },[])
+
   return (
     <div className='min-h-screen flex items-center justify-center'>
       <div className='w-16 sm:w-20 aspect-square border-4

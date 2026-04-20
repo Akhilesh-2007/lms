@@ -65,7 +65,7 @@ const fetchUserData=async()=>{
   const fetchRecommendations=async()=>{
     try {
       const token=await getToken()
-      const response=await fetch('http://localhost:5000/api/user/recommendations',{
+      const response=await fetch(`${backednUrl}/api/user/recommendations`,{
         headers:{Authorization:`Bearer ${token}`}
       })
       const data=await response.json()

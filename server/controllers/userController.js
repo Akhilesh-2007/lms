@@ -2,6 +2,7 @@ import { clerkClient, getAuth } from "@clerk/express"
 import User from "../models/User.js"
 import Course from "../models/Course.js"
 import {Purchase} from "../models/Purchase.js"
+import {CourseProgress} from "../models/CourseProgress.js"
 import Stripe from 'stripe';
 const syncUserFromClerk = async (userId) => {
     let user = await User.findById(userId)

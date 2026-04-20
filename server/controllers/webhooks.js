@@ -62,7 +62,7 @@ export const stripeWebhooks=async(req,res)=>{
         event=Stripe.webhooks.constructEvent(req.body,sig,process.env.STRIPE_WEBHOOK_SECRET);
     }
     catch(error){
-        res.json({success:false,message:error.message})
+        return res.status(400).json({success:false,message:error.message})
     }
         // Handle the event
     switch (event.type) {
