@@ -16,12 +16,12 @@ const Home = () => {
     <div className='flex flex-col items-center space-y-7'>
         <Hero />
         {recommendations.length > 0 && (
-          <div className="w-full px-8 md:px-40 py-12 bg-gradient-to-b from-blue-50/50 to-white">
+          <div className="w-full px-8 md:px-40 py-12 bg-gradient-to-b from-blue-950/20 to-transparent">
             <div className="text-center max-w-3xl mx-auto mb-10">
-              <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Recommended for You
               </h2>
-              <p className="text-sm md:text-base text-gray-500 mt-3">
+              <p className="text-sm md:text-base text-gray-300 mt-3 font-medium">
                 Based on your learning preferences and enrolled courses
               </p>
             </div>

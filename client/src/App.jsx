@@ -5,6 +5,9 @@ import CoursesList from './pages/student/CoursesList'
 import CourseDetails from './pages/student/CourseDetails'
 import MyEnrollments from './pages/student/MyEnrollments'
 import Player from './pages/student/Player'
+import AboutUs from './pages/student/AboutUs'
+import ContactUs from './pages/student/ContactUs'
+import PrivacyPolicy from './pages/student/PrivacyPolicy'
 import Loading from './components/student/Loading'
 import Educator from './pages/educator/Educator'
 import Dashboard from './pages/educator/Dashboard'
@@ -21,7 +24,7 @@ const App = () => {
   const isEducatorroute=useMatch('/educator/*');
   
   return (
-    <div className='text-default min-h-screen bg-white'>
+    <div className='text-default min-h-screen bg-[#0a0a12]'>
       <ToastContainer />
       {!isEducatorroute && <Navbar />}
       <Routes>
@@ -31,6 +34,9 @@ const App = () => {
         <Route path='/course/:id' element={<CourseDetails />} />
         <Route path='/my-enrollments' element={<MyEnrollments />} />
         <Route path='/player/:courseId' element={<Player />} />
+        <Route path='/about-us' element={<AboutUs />} />
+        <Route path='/contact-us' element={<ContactUs />} />
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/loading/:path' element={<Loading />} />
         <Route path='/educator' element={<Educator />}>
             <Route path='/educator' element={<Dashboard/>}/>

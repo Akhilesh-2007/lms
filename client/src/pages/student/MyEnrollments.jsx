@@ -95,25 +95,25 @@ const MyEnrollments = () => {
   return (
     <>
     <div className='md:px-36 px-8 pt-10'>
-      <h1 className='text-2xl font-semibold'>My Enrollments</h1>
-      <table className='md:table-auto table-fixed w-full overflow-hidden border
-      mt-10'>
-        <thead className='text-gray-900 border-b border-gray-500/20 text-sm
-        text-left max-sm:hidden'>
+      <h1 className='text-3xl font-bold text-white'>My Enrollments</h1>
+      <table className='md:table-auto table-fixed w-full overflow-hidden border border-gray-700/50
+      mt-10 rounded-lg'>
+        <thead className='text-white border-b border-gray-700/50 text-sm
+        text-left max-sm:hidden bg-gray-800/40'>
           <tr>
-            <th className='px-4 py-3 font-semibold truncate'>Course</th>
-            <th className='px-4 py-3 font-semibold truncate'>Duration</th>
-            <th className='px-4 py-3 font-semibold truncate'>Completed</th>
-            <th className='px-4 py-3 font-semibold truncate'>Status</th>
+            <th className='px-4 py-3 font-bold truncate'>Course</th>
+            <th className='px-4 py-3 font-bold truncate'>Duration</th>
+            <th className='px-4 py-3 font-bold truncate'>Completed</th>
+            <th className='px-4 py-3 font-bold truncate'>Status</th>
           </tr>
         </thead>
-        <tbody className='text-gray-700'>
+        <tbody className='text-gray-300'>
           {
             enrolledCourses.map((course,index)=>{
               const thumbnailSrc = resolveCourseThumbnail(course)
 
               return (
-              <tr key={index} className='border-b border-gray-500/20'>
+              <tr key={index} className='border-b border-gray-700/30 hover:bg-gray-800/30 transition'>
                 <td className='md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3'>
                   <img
                     src={thumbnailSrc}
@@ -125,23 +125,23 @@ const MyEnrollments = () => {
                     }}
                   />
                   <div className='flex-1'>
-                    <p className='mb-1 max-sm:text-sm'>{course.courseTitle}</p>
+                    <p className='mb-2 max-sm:text-sm text-gray-100 font-medium'>{course.courseTitle}</p>
                     <Line strokeWidth={2} percent={progressArray[index]?
                       (progressArray[index].lectureCompleted*100)/progressArray[index].totalLectures:0
-                    } className='bg-gray-300 rounded-full'/>
+                    } strokeColor='#3b82f6' trailColor='#1f2937' className='rounded-full'/>
                   </div>
                 </td>
-                <td className='px-4 py-3 max-sm:hidden'>
+                <td className='px-4 py-3 max-sm:hidden text-gray-300'>
                   {calculateCourseDuration(course)}
                 </td>
-                <td className='px-4 py-3 max-sm:hidden'>
+                <td className='px-4 py-3 max-sm:hidden text-gray-400'>
                  {progressArray[index] && `${progressArray[index].
                  lectureCompleted}/${progressArray[index].
-                 totalLectures}`} <span>Lectures</span>
+                 totalLectures}`} <span className='text-gray-500 font-medium'>Lectures</span>
                 </td>
                 <td className='px-4 py-3 max-sm:text-right'>
                   <button className='px-3 sm:px-5 py-1.5 sm:py-2 bg-blue-600
-                  max-sm:text-xs text-white' onClick={()=>navigate('/player/'+course
+                  max-sm:text-xs text-white rounded hover:bg-blue-500 transition shadow-lg shadow-blue-600/20' onClick={()=>navigate('/player/'+course
                     ._id
                   )}>
                     {progressArray[index] && progressArray[index].lectureCompleted/

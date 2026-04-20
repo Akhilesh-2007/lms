@@ -31,18 +31,18 @@ const CoursesList = () => {
       <div className='flex md:flex-row flex-col gap-6 items-start justify-between
       w-full'>
         <div className=''>
-          <h1 className='text-4xl font-semibold text-gray-800'>Course List</h1>
-        <p className='text-gray-500'>
-          <span className='text-blue-600 cursor-pointer'
+          <h1 className='text-4xl font-bold text-white'>Course List</h1>
+        <p className='text-gray-400 mt-1'>
+          <span className='text-blue-400 cursor-pointer hover:text-blue-300 transition'
           onClick={() => navigate('/')}>Home</span>
-          /<span>Course List</span></p>
+          <span className='mx-2'>/</span><span className='text-gray-200'>Course List</span></p>
         </div>
         <SearchBar data={input} />
       </div>
-      { input && <div className='inline-flex items-center gap-4 px-4 py-2 border mt-8
-      -mb-8 text-gray-600'>
+      { input && <div className='inline-flex items-center gap-4 px-4 py-2 border border-blue-500/30 bg-blue-600/10 mt-8
+      -mb-8 text-blue-400 rounded-full font-medium'>
         <p>{input}</p>
-        <img src={assets.cross_icon}alt="" className='cursor-pointer' onClick={()=>
+        <img src={assets.cross_icon}alt="" className='cursor-pointer invert' onClick={()=>
           navigate('/course-list')}/>
         </div>
       }

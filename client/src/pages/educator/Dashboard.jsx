@@ -40,55 +40,55 @@ const Dashboard = () => {
     md:p-8 md:pb-0 p-4 pt-8 pb-0'>
       <div className='space-y-5'>
         <div className='flex flex-wrap gap-5 items-center'>
-          <div className="flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md">
-            <img src={assets.patients_icon} alt="patients_icon" />
+          <div className="flex items-center gap-4 shadow-card border border-blue-500/20 p-5 w-64 rounded-md bg-[#11111e] hover:border-blue-500/40 transition-all duration-300">
+            <img src={assets.patients_icon} alt="patients_icon" className='invert brightness-125' />
             <div>
-              <p className="text-2xl font-medium text-gray-600">
+              <p className="text-3xl font-bold text-white">
                 {dashboardData.enrolledStudentsData.length}
               </p>
-              <p className="text-base text-gray-500">Total Enrolments</p>
+              <p className="text-sm text-gray-400 font-medium">Total Enrollments</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md">
-            <img src={assets.appointments_icon} alt="appointments_icon" />
+          <div className="flex items-center gap-4 shadow-card border border-blue-500/20 p-5 w-64 rounded-md bg-[#11111e] hover:border-blue-500/40 transition-all duration-300">
+            <img src={assets.appointments_icon} alt="appointments_icon" className='invert brightness-125' />
             <div>
-              <p className="text-2xl font-medium text-gray-600">
+              <p className="text-3xl font-bold text-white">
                 {dashboardData.totalCourses}
               </p>
-              <p className="text-base text-gray-500">Total Courses</p>
+              <p className="text-sm text-gray-400 font-medium">Total Courses</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 shadow-card border border-blue-500 p-4 w-56 rounded-md">
-            <img src={assets.earning_icon} alt="earning_icon" />
+          <div className="flex items-center gap-4 shadow-card border border-blue-500/20 p-5 w-64 rounded-md bg-[#11111e] hover:border-blue-500/40 transition-all duration-300">
+            <img src={assets.earning_icon} alt="earning_icon" className='invert brightness-125' />
             <div>
-              <p className="text-2xl font-medium text-gray-600">{currency}
+              <p className="text-3xl font-bold text-white">{currency}
                 {dashboardData.totalEarnings}
               </p>
-              <p className="text-base text-gray-500">Total Earnings</p>
+              <p className="text-sm text-gray-400 font-medium">Total Earnings</p>
             </div>
           </div>
         </div>
         <div>
-          <h2 className="pb-4 text-lg font-medium">Latest Enrolments</h2>
-          <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-500/20">
-            <table className="table-fixed md:table-auto w-full overflow-hidden">
-              <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left">
+          <h2 className="pb-4 text-xl font-bold text-white">Latest Enrollments</h2>
+          <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-[#11111e] border border-gray-700/50">
+            <table className="table-fixed md:table-auto w-full overflow-hidden text-gray-300">
+              <thead className="text-gray-100 border-b border-gray-700/50 text-sm text-left bg-gray-800/40">
                 <tr>
                   <th className="px-4 py-3 font-semibold text-center hidden sm:table-cell">#</th>
                   <th className="px-4 py-3 font-semibold">Student Name</th>
                   <th className="px-4 py-3 font-semibold">Course Title</th>
                 </tr>
               </thead>
-              <tbody className="text-sm text-gray-500">
+              <tbody className="text-sm text-gray-400">
                 {dashboardData.enrolledStudentsData.map((item, index) => (
-                  <tr key={index} className="border-b border-gray-500/20">
-                    <td className="px-4 py-3 text-center hidden sm:table-cell">
+                  <tr key={index} className="border-b border-gray-700/30 hover:bg-gray-800/20 transition">
+                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-500">
                     {index + 1}</td>
-                    <td className="md:px-4 px-2 py-3 flex items-center space-x-3">
+                    <td className="md:px-4 px-2 py-3 flex items-center space-x-3 text-gray-200">
                       <img
                         src={item.student.imageUrl}
                         alt="Profile"
-                        className="w-9 h-9 rounded-full"/>
+                        className="w-9 h-9 rounded-full border border-gray-700"/>
                       <span className="truncate">{item.student.name}</span>
                     </td>
                     <td className="px-4 py-3 truncate">{item.courseTitle}</td>

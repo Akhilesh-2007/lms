@@ -129,7 +129,7 @@ export const purchaseCourse=async(req,res)=>{
 //Update User Course Progress
 export const updateUserCourseProgress=async(req,res)=>{
     try {
-        const userId=req.auth.userId
+        const {userId} = getAuth(req)
         const {courseId,lectureId}=req.body
         const progressData=await CourseProgress.findOne({userId,courseId})
 
@@ -155,10 +155,10 @@ export const updateUserCourseProgress=async(req,res)=>{
 //get User Course Progress
 export const getUserCourseProgress=async(req,res)=>{
     try {
-        const userId=req.auth.userId
+        const {userId} = getAuth(req)
         const {courseId}=req.body
         const progressData=await CourseProgress.findOne({userId,courseId})
-        res.json({success:true,progress:progressData})
+        res.json({success:true,progressData})
     } catch (error) {
         res.status(500).json({success:false,message:error.message})
     }
@@ -166,14 +166,14 @@ export const getUserCourseProgress=async(req,res)=>{
 
 //Add user ratings to course
 export const addUserRating=async(req,res)=>{
-        const userId=req.auth.userId
-        const {courseId,rating}=req.body
-        const courseData=await Course.findById(courseId)
-
-        if(!courseId || !userId||!rating||rating<1||rating>5){
-            return res.status(400).json({success:false,message:"Invalid input data"})
-        }
         try {
+            const {userId} = getAuth(req)
+            const {courseId,rating}=req.body
+
+            if(!courseId || !userId||!rating||rating<1||rating>5){
+                return res.status(400).json({success:false,message:"Invalid input data"})
+            }
+
             const course=await Course.findById(courseId);
 
             if(!course){

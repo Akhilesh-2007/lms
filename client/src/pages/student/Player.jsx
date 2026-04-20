@@ -167,14 +167,14 @@ const Player = () => {
     <div className='p-4 sm:p-10 flex flex-col-reverse md:grid md:grid-cols-2 gap-10
     md:px-36'>
         {/*left column*/}
-        <div className='text-gray-800'>
+        <div className='text-gray-200'>
           <h2 className='text-xl font-semibold'>Course Structure</h2>
           <div className='pt-5'>
               {courseData && Array.isArray(courseData.courseContent) && courseData.courseContent.map((chapter,index)=>(
                 <div
                     key={index}
-                    className="mb-3 border border-gray-300 bg-white rounded-lg
-                    hover:shadow-sm transition">
+                    className="mb-3 border border-gray-700/50 bg-gray-800/30 rounded-lg
+                    hover:border-gray-600 transition">
                     <div
                       className="flex items-center justify-between px-4 py-3
                       cursor-pointer select-none" onClick={()=> toggleSection(index)}>
@@ -182,11 +182,11 @@ const Player = () => {
                         <img
                           src={assets.down_arrow_icon}
                           alt="arrow_icon"
-                          className={`transform transition-transform ${openSection
+                          className={`transform transition-transform invert opacity-60 ${openSection
                             [index] ? 'rotate-180' : 'rotate-0'
                           }`}
                         />
-                        <p className="font-medium md:text-base text-sm text-gray-800">
+                        <p className="font-medium md:text-base text-sm text-gray-200">
                           {chapter.chapterTitle}
                         </p>
                       </div>
@@ -198,20 +198,20 @@ const Player = () => {
                     ${
                       openSection[index] ? 'max-h-96' : 'max-h-0'
                     }`}>
-                      <ul className='list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600
-                      border-t border-gray-300'>
+                      <ul className='list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-400
+                      border-t border-gray-700/50'>
                         {chapter.chapterContent.map((lecture, i) => (
                           <li key={i} className='flex items-start gap-2 py-1'>
                             <img src={progressData?.lectureCompleted?.includes(lecture.lectureId) ? assets.blue_tick_icon : assets.play_icon}alt='play icon'  className='w-4 h-4 mt-1 ml-2' />
                             <div className='flex item-center justify-between w-full
-                            text-gray-800 text-xs md:text-default'>
-                              <p>{lecture.lectureTitle}</p>
+                            text-gray-200 text-xs md:text-default'>
+                              <p className='font-medium'>{lecture.lectureTitle}</p>
                               <div className='flex gap-2'>
                                 {getLectureUrl(lecture) && <p 
                                 onClick={()=>setPlayerData({
                                   ...lecture,chapter:index+1,lecture:i+1,lectureUrl:getLectureUrl(lecture)
                                 })}
-                                className='text-blue-500 cursor-pointer'>Watch</p>}
+                                className='text-blue-400 cursor-pointer hover:text-blue-300'>Watch</p>}
                                 <p>{humanizeDuration(lecture.lectureDuration*60*1000,{units:['h','m']})}</p>
                               </div>
                             </div>    
@@ -223,7 +223,7 @@ const Player = () => {
               ))}
             </div>
           <div className='flex items-center gap-2 py-3 mt-10'>
-            <h1 className='text-xl font-bold'>Rate this Course:</h1>
+            <h1 className='text-xl font-bold text-gray-100'>Rate this Course:</h1>
             <Rating initialRating={initialRating} onRate={handleRate}/>
           </div>
         </div>
@@ -232,12 +232,14 @@ const Player = () => {
           {playerData?(
             <div>
               <YouTube
-                      videoId={playerData.lectureUrl.split('/').pop()}
+                      videoId={playerData.lectureUrl.includes('youtu.be/') ? playerData.lectureUrl.split('youtu.be/')[1].split('?')[0] : playerData.lectureUrl.includes('v=') ? playerData.lectureUrl.split('v=')[1].split('&')[0] : playerData.lectureUrl.split('/').pop()}
                       iframeClassName="w-full aspect-video"
               />
-              <div className='flex justify-between items-center mt-1'>
-                <p>{playerData.chapter}.{playerData.lecture}.{playerData.lectureTitle}</p>
-                <button onClick={()=>markLectureComplete(playerData.lectureId)} className='text-blue-600'>{progressData?.lectureCompleted?.includes(playerData.lectureId)?'Completed':'Mark Complete'}</button>
+              <div className='flex justify-between items-center mt-3'>
+                <p className='text-gray-200 font-medium'>{playerData.chapter}.{playerData.lecture}.{playerData.lectureTitle}</p>
+                <button onClick={()=>markLectureComplete(playerData.lectureId)} className='text-blue-400 hover:text-blue-300 font-medium transition'>
+                  {progressData?.lectureCompleted?.includes(playerData.lectureId)?'Completed':'Mark Complete'}
+                </button>
               </div>
             </div>
           )

@@ -107,21 +107,24 @@ export const dummyTestimonial = [
         role: 'SWE 1 @ Amazon',
         image: assets.profile_img_1,
         rating: 5,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'I\'ve been using Trainly for nearly two years, primarily for upskilling, and it has been incredibly user-friendly, making my work much easier.',
+        extendedFeedback: 'The course content is well-structured and the instructors are top-notch. I was able to crack my Amazon interview after completing the JavaScript and Data Structures courses. The hands-on projects really helped me understand the concepts deeply. Highly recommend to anyone looking to level up their career!'
     },
     {
         name: 'Richard Nelson',
         role: 'SWE 2 @ Samsung',
         image: assets.profile_img_2,
         rating: 4,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'I\'ve been using Trainly for nearly two years, primarily for learning new technologies, and it has been incredibly user-friendly, making my work much easier.',
+        extendedFeedback: 'What I love most about Trainly is the variety of courses available. From Python to Cloud Computing, everything is covered in depth. The progress tracking feature keeps me motivated, and the certificates are recognized by top companies. The only reason I gave 4 stars instead of 5 is that I wish there were more advanced-level courses.'
     },
     {
         name: 'James Washington',
         role: 'SWE 2 @ Google',
         image: assets.profile_img_3,
         rating: 4.5,
-        feedback: 'I\'ve been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.',
+        feedback: 'I\'ve been using Trainly for nearly two years, primarily for preparing for interviews, and it has been incredibly user-friendly, making my work much easier.',
+        extendedFeedback: 'Trainly helped me transition from a junior to a senior role at Google. The Web Development Bootcamp was comprehensive and up-to-date with industry standards. The community support is amazing — I could always get help when I was stuck. The pricing is also very reasonable compared to other platforms.'
     },
 ];
 
