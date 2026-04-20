@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^5.61.1",
     "@tailwindcss/vite": "^4.2.0",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.15.0",
     "humanize-duration": "^3.33.2",
     "lucide-react": "^1.8.0",
     "quill": "^2.0.3",
@@ -20,6 +21,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
+    "react-toastify": "^11.0.5",
     "react-youtube": "^10.1.0",
     "tailwindcss": "^3.4.17",
     "uniqid": "^5.4.0"
