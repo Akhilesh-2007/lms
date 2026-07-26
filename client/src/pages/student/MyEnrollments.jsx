@@ -126,8 +126,8 @@ const MyEnrollments = () => {
                   />
                   <div className='flex-1'>
                     <p className='mb-2 max-sm:text-sm text-gray-100 font-medium'>{course.courseTitle}</p>
-                    <Line strokeWidth={2} percent={progressArray[index]?
-                      (progressArray[index].lectureCompleted*100)/progressArray[index].totalLectures:0
+                    <Line strokeWidth={2} percent={progressArray[index] && progressArray[index].totalLectures > 0 ?
+                      (progressArray[index].lectureCompleted * 100) / progressArray[index].totalLectures : 0
                     } strokeColor='#3b82f6' trailColor='#1f2937' className='rounded-full'/>
                   </div>
                 </td>
@@ -144,8 +144,7 @@ const MyEnrollments = () => {
                   max-sm:text-xs text-white rounded hover:bg-blue-500 transition shadow-lg shadow-blue-600/20' onClick={()=>navigate('/player/'+course
                     ._id
                   )}>
-                    {progressArray[index] && progressArray[index].lectureCompleted/
-                    progressArray[index].totalLectures==1 ? 'Completed':'On Going'}
+                    {progressArray[index] && progressArray[index].totalLectures > 0 && progressArray[index].lectureCompleted === progressArray[index].totalLectures ? 'Completed':'On Going'}
                     </button>
                 </td>
               </tr>

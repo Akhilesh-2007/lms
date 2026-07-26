@@ -47,10 +47,48 @@ export const userEnrolledCourses = async (req, res) => {
             return res.status(401).json({ success: false, message: "User not authenticated" })
         }
 
-        await syncUserFromClerk(userId)
-        const userData = await User.findById(userId).populate("enrolledCourses")
+        const userData = await syncUserFromClerk(userId)
 
-        res.json({ success: true, enrolledCourses: userData.enrolledCourses })
+        if (!userData) {
+            return res.status(404).json({ success: false, message: "User not found" })
+        }
+
+        // 1. Find courses referenced in User.enrolledCourses
+        const userDocCourses = userData.enrolledCourses?.length > 0 
+            ? await Course.find({ _id: { $in: userData.enrolledCourses } }) 
+            : []
+
+        // 2. Find courses where user ID is in Course.enrolledStudents
+        const coursesFromEnrolled = await Course.find({ enrolledStudents: userId })
+
+        // 3. Find completed purchases for this user
+        const completedPurchases = await Purchase.find({ userId, status: 'completed' })
+        const purchaseCourseIds = completedPurchases.map(p => p.courseId)
+        const coursesFromPurchases = await Course.find({ _id: { $in: purchaseCourseIds } })
+
+        // Merge and deduplicate by course._id
+        const courseMap = new Map()
+        
+        userDocCourses.forEach(course => {
+            if (course) courseMap.set(course._id.toString(), course)
+        })
+        coursesFromEnrolled.forEach(course => {
+            if (course) courseMap.set(course._id.toString(), course)
+        })
+        coursesFromPurchases.forEach(course => {
+            if (course) courseMap.set(course._id.toString(), course)
+        })
+
+        const allEnrolledCourses = Array.from(courseMap.values())
+
+        // Auto-sync User document so User.enrolledCourses stays updated in MongoDB
+        const allCourseIds = allEnrolledCourses.map(c => c._id)
+        if (allCourseIds.length !== (userData.enrolledCourses?.length || 0)) {
+            userData.enrolledCourses = allCourseIds
+            await userData.save()
+        }
+
+        res.json({ success: true, enrolledCourses: allEnrolledCourses })
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })
     }
