@@ -135,26 +135,69 @@ export const educatorDashboardData=async(req,res)=>{
 }
 
 //get enrolled students data with purchase data
- export const getEnrolledStudentsData=async(req,res)=>{
-     try {
-        const educator=req.auth.userId;
-        const courses=await Course.find({educator});
-        const courseIds=courses.map(course =>course._id);
+export const getEnrolledStudentsData = async (req, res) => {
+    try {
+        const { userId: educator } = getAuth(req);
 
-        const purchases=await Purchase.find({
-            courseId:{$in:courseIds},
-            status:'completed'
-        }).populate('userId','name imageUrl').populate('courseId','courseTitle')
+        if (!educator) {
+            return res.status(401).json({ success: false, message: 'User not authenticated' });
+        }
 
-        const enrolledStudents=purchases.map(purchase=>({
-            student:purchase.userId,
-            courseTitle:purchase.courseId.courseTitle,
-            purchaseDate:purchase.createdAt
-        }));
+        const courses = await Course.find({ educator });
+        const courseIds = courses.map(course => course._id);
 
-        res.json({success:true,enrolledStudents})
+        const purchases = await Purchase.find({
+            courseId: { $in: courseIds },
+            status: 'completed'
+        }).populate('userId', 'name imageUrl').populate('courseId', 'courseTitle');
 
-     } catch (error) {
-        res.status(500).json({success:false,message:error.message});
+        const enrolledStudents = [];
+        const processedPairs = new Set();
+
+        // 1. Add students from purchases table
+        for (const purchase of purchases) {
+            if (purchase.userId && purchase.courseId) {
+                const studentId = purchase.userId._id ? purchase.userId._id.toString() : purchase.userId.toString();
+                const courseIdStr = purchase.courseId._id ? purchase.courseId._id.toString() : purchase.courseId.toString();
+                const pairKey = `${studentId}_${courseIdStr}`;
+                processedPairs.add(pairKey);
+
+                enrolledStudents.push({
+                    student: typeof purchase.userId === 'object' ? purchase.userId : { name: 'Student', imageUrl: '' },
+                    courseTitle: purchase.courseId.courseTitle || 'Course',
+                    purchaseDate: purchase.createdAt || new Date()
+                });
+            }
+        }
+
+        // 2. Fallback for any students directly enrolled in course.enrolledStudents
+        for (const course of courses) {
+            if (course.enrolledStudents && course.enrolledStudents.length > 0) {
+                const students = await User.find({
+                    _id: { $in: course.enrolledStudents }
+                }, 'name imageUrl createdAt');
+
+                for (const student of students) {
+                    const pairKey = `${student._id}_${course._id.toString()}`;
+                    if (!processedPairs.has(pairKey)) {
+                        processedPairs.add(pairKey);
+                        enrolledStudents.push({
+                            student: {
+                                _id: student._id,
+                                name: student.name,
+                                imageUrl: student.imageUrl
+                            },
+                            courseTitle: course.courseTitle,
+                            purchaseDate: course.updatedAt || student.createdAt || new Date()
+                        });
+                    }
+                }
+            }
+        }
+
+        res.json({ success: true, enrolledStudents });
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
     }
 }
